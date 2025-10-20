@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float _bulletSpeed = 160f; // 총알 속도
     [SerializeField] private float _bulletTime = 3f; // 총알 유지시간
+    [SerializeField] private float _damage;
 
     private void Start()
     {
@@ -29,7 +30,14 @@ public class Bullet : MonoBehaviour
         //적과 충돌하면 제거
         if (other.CompareTag("Enemy"))
         {
-            Destroy(other.gameObject); // 적 제거
+            ITakeDamageAdapter adapter = other.GetComponent<ITakeDamageAdapter>();
+
+            if (adapter == null)
+                return;
+
+            adapter.OnTakeDamage(_damage);
+
+            //Destroy(other.gameObject); // 적 제거
             Destroy(gameObject); // 총알 제거
         }        
     }

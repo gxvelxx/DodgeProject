@@ -206,6 +206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weapon: {fileID: 1610024660907250017}
+  _maxHp: 10
 --- !u!1 &990142077669442485
 GameObject:
   m_ObjectHideFlags: 0

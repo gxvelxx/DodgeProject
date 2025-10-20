@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    private bool _isPlaying = false;
+    [SerializeField] private bool _isPlaying = true;
     
     public bool IsPlaying { get { return _isPlaying; } }
 

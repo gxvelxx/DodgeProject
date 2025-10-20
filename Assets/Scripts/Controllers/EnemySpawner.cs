@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
 
-    [SerializeField] private GameObject _enemyPrefab;    
+    [SerializeField] private GameObject[] _enemyPrefab;    
     [SerializeField] private float _spawnRate = 0.2f; // 생성속도
     [SerializeField] private int _maxEnemies = 50; // 최대 적수
     [SerializeField] private float _spawnRadius = 80f; // 생성반경
@@ -38,11 +38,14 @@ public class EnemySpawner : MonoBehaviour
             // 다음생성까지 대기
             yield return new WaitForSeconds(_spawnRate);
 
-            // 최대치면 스킵
-            if (_currentEnemyCount >= _maxEnemies)
-                continue;
+            if (GameManager.Instance.IsPlaying) // 게임매니저 적용
+            {
+                // 최대치면 스킵
+                if (_currentEnemyCount >= _maxEnemies)
+                    continue;
 
-            SpawnEnemy();       
+                SpawnEnemy();
+            }                  
         }
     }
 
@@ -53,7 +56,8 @@ public class EnemySpawner : MonoBehaviour
             Random.Range(-_spawnRadius, _spawnRadius), 0, 0);
 
         //적프리팹
-        GameObject newEnemy = Instantiate(_enemyPrefab, spawnPos, Quaternion.identity);
+        int randIndex = Random.Range(0, _enemyPrefab.Length);
+        GameObject newEnemy = Instantiate(_enemyPrefab[randIndex], spawnPos, Quaternion.identity);
         _currentEnemyCount++;
 
         //적파괴시 카운트감소

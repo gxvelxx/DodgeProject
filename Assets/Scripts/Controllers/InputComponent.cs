@@ -10,6 +10,11 @@ public class InputComponent : MonoBehaviour
     public float HorInput => _horInput;
     public float VerInput => _verInput;
 
+    public bool IsShootingKeyPressed()
+    {
+        return Input.GetKey(KeyCode.Space);
+    }
+
     void Update()
     {
         //부드러운 감속
@@ -17,7 +22,7 @@ public class InputComponent : MonoBehaviour
         _horInput = Input.GetAxisRaw("Horizontal"); // 키입력 A, D
         _verInput = Input.GetAxisRaw("Vertical"); // 키입력 W, S
 
-        Debug.Log($"HorInput = {_horInput}");
-        Debug.Log($"VerInput = {_verInput}");
+        //Debug.Log($"HorInput = {_horInput}");
+        //Debug.Log($"VerInput = {_verInput}");
     }
 }

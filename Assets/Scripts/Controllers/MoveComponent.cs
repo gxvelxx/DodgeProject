@@ -42,8 +42,8 @@ public class MoveComponent : MonoBehaviour
     private void Move()
     {
         //현재 게임이 진행중이지 않으면 움직이지 않도록
-        //if (GameManager.Instance.IsPlaying == false)
-        //    return;        
+        if (GameManager.Instance.IsPlaying == false) // 게임매니저 적용
+            return; // 게임매니저 적용
 
         //X, Y, Z 정규화
         Vector3 inputVec = new Vector3(_inputComponent.HorInput, 0f, _inputComponent.VerInput).normalized;
