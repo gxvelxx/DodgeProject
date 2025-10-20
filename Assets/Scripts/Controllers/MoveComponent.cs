@@ -41,6 +41,10 @@ public class MoveComponent : MonoBehaviour
     }
     private void Move()
     {
+        //현재 게임이 진행중이지 않으면 움직이지 않도록
+        //if (GameManager.Instance.IsPlaying == false)
+        //    return;        
+
         //X, Y, Z 정규화
         Vector3 inputVec = new Vector3(_inputComponent.HorInput, 0f, _inputComponent.VerInput).normalized;
         //환경마다 다르기 때문에 1/프레임을 해줘야 어느 환경에서든 일치

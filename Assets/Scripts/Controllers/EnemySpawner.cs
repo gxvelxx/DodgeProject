@@ -12,11 +12,26 @@ public class EnemySpawner : MonoBehaviour
 
     private int _currentEnemyCount = 0;
 
+    //코루틴 핸들을 저장할 변수
+    private Coroutine _spawnEnemyCoroutine;
     private void Start()
     {
-        StartCoroutine(SpawnEnemyRoutine());
+        StartGameAction();
     }
-    private IEnumerator SpawnEnemyRoutine()
+    private void StartGameAction() // 게임의 시작
+    {
+        StartSpawnEnemy();
+    }
+    private void StartSpawnEnemy() // 적생성 코루틴시작
+    {
+        //코루틴 확인
+        if (_spawnEnemyCoroutine != null)
+            _spawnEnemyCoroutine = null; // 초기화
+        
+        //재시작
+        _spawnEnemyCoroutine = StartCoroutine(SpawnEnemyProcess());
+    }
+    private IEnumerator SpawnEnemyProcess() //적생성 관리
     {
         while (true)
         {
