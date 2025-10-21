@@ -12,6 +12,11 @@ public class Player : MonoBehaviour
     private float _curHp; // 현재체력
     private InputComponent _inputComponent;
     private MoveComponent _moveComponent;
+
+    //Hp 구독
+    private List<IPlayerHpObserver> _hpObservers = new List<IPlayerHpObserver>();
+    public void AddHpObserver(IPlayerHpObserver Observer) => _hpObservers.Add(Observer);
+    public void RemoveHpObserver(IPlayerHpObserver Observer) => _hpObservers.Remove(Observer);
    
     private void Start()
     {
@@ -22,6 +27,8 @@ public class Player : MonoBehaviour
     private void InitPlayer()
     {
         _curHp = _maxHp;
+
+        NotifyHpUpdate();
     }
 
     private void SetComponent()
@@ -50,12 +57,23 @@ public class Player : MonoBehaviour
 
         Debug.Log($"palyerHP = {_curHp}");
 
+        //Hp 구독
+        NotifyHpUpdate();
+
         if (_curHp <= 0)
         {
             _curHp = 0;
             GameManager.Instance.ChangeGameState(); // 게임매니저 적용
             //gameObject.SetActive(false);
             return;
+        }
+    }
+    
+    private void NotifyHpUpdate()
+    {
+        foreach (IPlayerHpObserver observer in _hpObservers)
+        {
+            observer.OnPlayerHpChanged(_curHp, _maxHp);
         }
     }
 }

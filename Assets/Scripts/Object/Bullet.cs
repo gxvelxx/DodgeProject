@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private float _bulletSpeed = 160f; // 총알 속도
-    [SerializeField] private float _bulletTime = 3f; // 총알 유지시간
+    [SerializeField] private float _bulletTime = 2f; // 총알 유지시간
     [SerializeField] private float _damage;
 
     private void Start()
